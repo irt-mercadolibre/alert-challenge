@@ -40,7 +40,7 @@ Nota: Los tipos de iocs pueden ser: ip, hash (MD5, SHA256), url, domain.
 **Response Body**:
 ```json
 {
-    "id": <id de la alerta>,
+    "id": "<id de la alerta>",
     "status": "Alerta recibida correctamente",
 }
 ```
@@ -92,7 +92,7 @@ curl --request GET \
 - En caso de error, retornar el código de error correspondiente.
 
 **Response Body**:
-```
+```json
     {
 		"alerts": [
 			{
@@ -118,7 +118,7 @@ curl --request GET \
 ```
 
 Los _query parameters_ anteriormente especificados pueden ser unificados para realizar una consulta más compleja. Ejemplo:
-```
+```bash
 curl --request GET \
       --url 'http://localhost:8080/alerts?ioc_type=domain&days=7&user=pepito'
 ```

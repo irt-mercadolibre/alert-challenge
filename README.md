@@ -12,7 +12,9 @@ La API deberá contar con tres métodos (Endpoints) que deben cumplir con este c
 
 ### Recibir alerta
 Metodo: `POST`
+
 Path: `/alert`
+
 Body:
 ```
     {

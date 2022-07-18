@@ -4,6 +4,8 @@ Como equipo de **seguridad informática** tenemos la necesidad de administrar y 
 Por lo cual, necesitamos realizar una API que reciba los eventos generados por una herramienta que detecta actividad maliciosa de las computadoras internas.
 Se puede implementar con el lenguaje de programación que prefieras, frameworks y librerias que creas necesarios pero si es importante usar [Docker](https://www.docker.com/) para que sea reproducible facilmente y podamos probarlo.
 
+## REQUISITOS
+
 El challenge consta de una implementación básica obligatoria, dos optativas (**se recomienda implementar al menos una de las dos**) y algunos extras (no obligatorios). La implementación debe contar con al menos un **test unitario** (ya sea de un endpoint o alguna funcionalidad).
 
 

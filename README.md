@@ -13,7 +13,7 @@ La API deberá contar con tres métodos (Endpoints) que deben cumplir con este c
 ### Recibir alerta
 Metodo: `POST` \
 Path: `/alert` \
-Body:
+Body de ejemplo:
 ```
     {
 		"source": "firewall",
@@ -36,8 +36,8 @@ Response Code:
 Response Body:
 ```
     {
-		"id": <id de la alerta>
-	    "status": "Alerta recibida correctamente",
+	"id": <id de la alerta>
+	"status": "Alerta recibida correctamente",
     }
 ```
 
@@ -59,7 +59,8 @@ curl --request POST \
 
 ### Leer las alertas creadas por un usuario, en los últimos N días
 Descripción: Se debe poder consultar las alertas generadas por un usuario en específico de los últimos N días.
-Metodo: `GET`
+
+Metodo: `GET` \
 Path: `/alerts?user=<user>&days=<days>`
 
 Response Code:
@@ -67,7 +68,7 @@ Response Code:
 - `204` en caso de no encontrar nada.
 - En caso de error un status code correspondiente al tipo de error.
 
-Response Body:
+Response Body de ejemplo:
 ```
     {
 		"alerts": [
@@ -101,7 +102,8 @@ curl --request GET \
 
 ### Leer alertas por tipo de IOC
 Descripción: Agregar un parámetro (_Query Parameter_) para consultar las alertas de un tipo específico de IOC de los últimos N días.
-Metodo: `GET`
+
+Metodo: `GET` \
 Path: `/alerts?ioc_type=<ioc_type>&days=<days>`
 
 Response Code:
@@ -112,11 +114,11 @@ Response Code:
 Curl de ejemplo:   
 ```
 curl --request GET \
-      --url 'http://localhost:8080/alerts?type=<ioc_type>'
+      --url 'http://localhost:8080/alerts?type=ip'
 ```
 
 ## Implementación optativa 1
-Sumar al un `DELETE` para eliminar las alertas a través de un ID.
+Sumar a la implementación el chequeo de alertas repetidas.
 
 ## Implementación optativa 2
 Se requiere también utilizar esta app para validar la información de diferentes IOCs, para lo cual se debe realizar un endpoint que consulte en alguna fuente pública (como Virus Total, PhishTank, etc) la reputación de un IOC proporcionado.

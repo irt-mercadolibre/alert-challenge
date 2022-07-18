@@ -11,10 +11,8 @@ El challenge consta de una implementación básica, dos optativas y algunos extr
 La API deberá contar con tres métodos (Endpoints) que deben cumplir con este contrato
 
 ### Recibir alerta
-Metodo: `POST`
-
-Path: `/alert`
-
+Metodo: `POST` \
+Path: `/alert` \
 Body:
 ```
     {

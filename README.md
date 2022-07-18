@@ -6,46 +6,47 @@ Se puede implementar con el lenguaje de programación que prefieras, frameworks 
 
 ## REQUISITOS
 
-El challenge consta de una implementación básica obligatoria, dos optativas (**se recomienda implementar al menos una de las dos**) y algunos extras (no obligatorios). La implementación debe contar con al menos un **test unitario** (ya sea de un endpoint o alguna funcionalidad).
+1. El challenge consta de una implementación básica obligatoria, dos optativas (**se recomienda implementar al menos una de las dos**) y algunos extras (no obligatorios).
+2. La implementación debe contar con al menos un **test unitario** (ya sea de un endpoint o alguna funcionalidad).
 
 
 ## Implementación básica
 
-La API deberá contar con tres métodos (Endpoints) que deben cumplir con este contrato
+La API deberá contar con dos endpoints que deben cumplir con este contrato.
 
 ### Recibir alerta
-Metodo: `POST` \
-Path: `/alert` \
-Body de ejemplo:
-```
-    {
-		"source": "firewall",
-		"ioc": {
-			"type": "url",
-			"data": "https://badurl.evil"
-		},
-		"user": "pepito",
-		"date": "12/07/2022"
-	}
+**Metodo**: `POST` \
+**Path**: `/alert` \
+**Body de ejemplo**:
+```json
+{
+	"source": "firewall",
+	"ioc": {
+		"type": "url",
+		"data": "https://badurl.evil"
+	},
+	"user": "pepito",
+	"datetime": "2022-07-12 12:00:00"
+}
 ```
 
 Se debe guardar la información del JSON para futuras consultas, la forma de almacenarlo queda a criterio propio.
-Nota: Los tipos de iocs pueden ser: ip, hash (MD5), url, domain.
+Nota: Los tipos de iocs pueden ser: ip, hash (MD5, SHA256), url, domain.
 
-Response Code:
+**Response Code**:
 - `201` en caso de éxito.
-- En caso de error un status code correspondiente al tipo de error, debe de regresar un error si la alerta es repetida.
+- En caso de error, retornar el código de error correspondiente.
 
-Response Body:
-```
-    {
-	"id": <id de la alerta>
-	"status": "Alerta recibida correctamente",
-    }
+**Response Body**:
+```json
+{
+    "id": <id de la alerta>,
+    "status": "Alerta recibida correctamente",
+}
 ```
 
-Curl de ejemplo:
-```
+**Curl de ejemplo**:
+```bash
 curl --request POST \
       --url http://localhost:8080/alert \
       --header 'content-type: application/json' \
@@ -56,22 +57,41 @@ curl --request POST \
 			"data": "https://badurl.evil"
 		},
 		"user": "pepito",
-		"date": "12/07/2022"
+		"datetime": "2022-07-12 12:00:00"
 	  }'
 ```
 
-### Leer las alertas creadas por un usuario, en los últimos N días
-Descripción: Se debe poder consultar las alertas generadas por un usuario en específico de los últimos N días.
+### Consultar alertas
 
-Metodo: `GET` \
-Path: `/alerts?user=<user>&days=<days>`
+**Metodo**: `GET` \
+**Path**: `/alerts`
 
-Response Code:
+Se debe crear un endpoint para consultar las alertas generadas, en base a los siguientes parámetros de consulta (_query parameters_):
+
+1. Alertas creadas por un usuario.
+```bash
+curl --request GET \
+      --url 'http://localhost:8080/alerts?user=pepito'
+```
+
+2. Alertas creadas en los últimos N días.
+```bash
+curl --request GET \
+      --url 'http://localhost:8080/alerts?days=7'
+```
+
+3. Alertas que contengan iocs de cierto tipo (ip, hash, domain, url)
+```bash
+curl --request GET \
+      --url 'http://localhost:8080/alerts?ioc_type=domain'
+```
+
+**Response Code**:
 - `200` en caso de éxito.
 - `204` en caso de no encontrar nada.
-- En caso de error un status code correspondiente al tipo de error.
+- En caso de error, retornar el código de error correspondiente.
 
-Response Body de ejemplo:
+**Response Body**:
 ```
     {
 		"alerts": [
@@ -82,7 +102,7 @@ Response Body de ejemplo:
 					"data": "https://badurl.evil"
 				},
 				"user": "pepito",
-				"date": "12/07/2022"
+				"datetime": "2022-07-12 12:00:00"
 			},
 			{
 				"source": "ips",
@@ -91,33 +111,16 @@ Response Body de ejemplo:
 					"data": "6.6.6.6"
 				},
 				"user": "pepito",
-				"date": "13/07/2022"
+				"datetime": "2022-07-12 12:00:00"
 			}
 		]
 	}
 ```
 
-Curl de ejemplo:   
+Los _query parameters_ anteriormente especificados pueden ser unificados para realizar una consulta más compleja. Ejemplo:
 ```
 curl --request GET \
-      --url 'http://localhost:8080/alerts?user=<user>&days=<days>'
-```
-
-### Leer alertas por tipo de IOC
-Descripción: Agregar un parámetro (_Query Parameter_) para consultar las alertas de un tipo específico de IOC de los últimos N días.
-
-Metodo: `GET` \
-Path: `/alerts?ioc_type=<ioc_type>&days=<days>`
-
-Response Code:
-- `200` en caso de éxito.
-- `204` en caso de no encontrar nada.
-- En caso de error un status code correspondiente al tipo de error.
-
-Curl de ejemplo:   
-```
-curl --request GET \
-      --url 'http://localhost:8080/alerts?type=ip'
+      --url 'http://localhost:8080/alerts?ioc_type=domain&days=7&user=pepito'
 ```
 
 ## Implementación optativa 1
@@ -128,8 +131,9 @@ Se requiere también utilizar esta app para validar la información de diferente
 
 ## Extras
 - Logging
+- Validación de datos entrantes
 - Documentación
 - Autenticación en la api
-- Sumar funcionalidades (ejemplo: validar información que reciben los endpoints, implementar async en el endpoint de Consulta a fuentes externas, o cualquiera adicional que se le quiera sumar)
+- Sumar funcionalidades (ejemplo: validar información que reciben los endpoints, implementar async en el endpoint de Consulta a fuentes externas, agregar _query parameters_ o cualquiera adicional que se le quiera sumar)
 
 **Recordá que cuanto mas fácil sea de reproducir y podamos ver todo lo que hiciste, mejor :D**

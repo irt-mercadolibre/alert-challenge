@@ -3,7 +3,7 @@
 Como equipo de **seguridad informática** tenemos la necesidad de administrar y gestionar las alertas de seguridad de todo el entorno de Mercado Libre.
 Por lo cual, necesitamos realizar una API que reciba los eventos generados por una herramienta que detecta actividad maliciosa de las computadoras internas.
 Se puede implementar con el lenguaje de programación que prefieras, frameworks y librerias que creas necesarios pero si es importante usar [Docker](https://www.docker.com/) para que sea reproducible facilmente y podamos probarlo.
-El challenge consta de una implementación básica, dos optativas y algunos extras.
+El challenge consta de una implementación básica, dos optativas (se recomienda implementar al menos una de las dos) y algunos extras.
 
 
 ## Implementación básica
@@ -118,7 +118,7 @@ curl --request GET \
 ```
 
 ## Implementación optativa 1
-Sumar a la implementación el chequeo de alertas repetidas.
+Sumar a la implementación el chequeo de alertas repetidas (usando el criterio que crea conveniente).
 
 ## Implementación optativa 2
 Se requiere también utilizar esta app para validar la información de diferentes IOCs, para lo cual se debe realizar un endpoint que consulte en alguna fuente pública (como Virus Total, PhishTank, etc) la reputación de un IOC proporcionado.

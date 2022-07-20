@@ -134,6 +134,6 @@ Se requiere también utilizar esta app para validar la información de diferente
 - Validación de datos entrantes
 - Documentación
 - Autenticación en la api
-- Sumar funcionalidades (ejemplo: validar información que reciben los endpoints, implementar async en el endpoint de Consulta a fuentes externas, agregar _query parameters_ o cualquiera adicional que se le quiera sumar)
+- Otras funcionalidades (ejemplo: como por ejemplo, que harías para reducir el consumo de una api pública, en el caso de la implementación optativa 2)
 
 **Recordá que cuanto mas fácil sea de reproducir y podamos ver todo lo que hiciste, mejor :D**

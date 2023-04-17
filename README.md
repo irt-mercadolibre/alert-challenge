@@ -88,7 +88,7 @@ curl --request GET \
 
 **Response Code**:
 - `200` en caso de éxito.
-- `204` en caso de no encontrar nada.
+- `404` en caso de no encontrar nada.
 - En caso de error, retornar el código de error correspondiente.
 
 **Response Body**:
